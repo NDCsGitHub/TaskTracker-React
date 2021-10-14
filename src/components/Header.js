@@ -2,10 +2,17 @@ import PropTypes from 'prop-types'
 import  Button from './Button.js'
 
 function Header({title}) {
+
+
+    function addButtonEvent(){
+        console.log('works')
+    }
+
+
     return (
         <header className='header'>
             <h1>{title}</h1>
-            <Button color='darkgreen' text='Add' />
+            <Button buttonFunction ={addButtonEvent} />
         </header>
     )
 }
