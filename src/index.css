@@ -110,3 +110,8 @@ footer {
   margin-top: 30px;
   text-align: center;
 }
+
+
+.deleteButton:hover{    
+ scale: 1.3;
+}

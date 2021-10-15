@@ -1,13 +1,13 @@
+import Task from './Task.js'
 
 
-
-function Tasks({taskArrayProp}) {
+function Tasks({taskArrayProp, onDeleteTask, onToggleReminder}) {
 
     return (
         <div>
            
-           {taskArrayProp.map(task => 
-               <h3  key={task.id}>{task.text}</h3>
+           {taskArrayProp.map(item => 
+               <Task  key={item.id}  taskProp={item} onDeleteTask={onDeleteTask} onToggleReminder={onToggleReminder} />
            )}
             
         </div>

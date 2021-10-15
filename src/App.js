@@ -25,13 +25,32 @@ function App() {
             reminder: false, 
         },
     ]
-    
 )
+
+// delete task
+function deleteTask(id){
+  setTasks(
+    taskArray.filter(item  => item.id !== id)
+  )
+}
+
+// double click for reminder
+function toggleReminder(id){
+  setTasks(
+    taskArray.map((item) => 
+      item.id === id ? {...item, reminder: !item.reminder} : item
+    )
+  )
+}
 
   return (
     <div className="container">
      <Header />
-     <Tasks taskArrayProp={taskArray} />
+     {taskArray.length > 0  ?  
+     (<Tasks taskArrayProp={taskArray} onDeleteTask={deleteTask} onToggleReminder={toggleReminder} />) 
+     : 
+     ("Not Task")}
+
     </div>
   );
 }
