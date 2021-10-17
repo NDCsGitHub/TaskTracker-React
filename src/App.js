@@ -28,6 +28,9 @@ function App() {
     ]
 )
 
+
+const [showAddTask, setShowAddTask] = useState(false)
+
 // delete task
 function deleteTask(id){
   setTasks(
@@ -44,19 +47,39 @@ function toggleReminder(id){
   )
 }
 
+
+// adding new task
+function addTask(task){
+  // setTasks(taskArray.push(task))
+  // console.log(taskArray)
+  const id = Math.floor(Math.random()*10000) + 1
+  const newTask = {id, ...task}
+  setTasks(taskArray.concat([newTask]))
+  console.log(taskArray)
+}
+
+//add button function
+function onAdd(){
+  setShowAddTask(!showAddTask)
+}
+
+
+
   return (
     <div className="container">
 
-      <Header />
-      <AddTask />
+      <Header onAdd={onAdd} showAddTask={showAddTask} />
+      
+      {showAddTask===true ?
+        (<AddTask onAdd={addTask} />)
+        :
+        null
+      }
 
       {taskArray.length > 0  ?  
       (<Tasks taskArrayProp={taskArray} onDeleteTask={deleteTask} onToggleReminder={toggleReminder} />) 
       : 
       ("Not Task")}
-
-
-   
 
 
     </div>

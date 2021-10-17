@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types'
 import  Button from './Button.js'
 
-function Header({title}) {
-
-
-    function addButtonEvent(){
-        console.log('works')
-    }
+function Header({title, onAdd, showAddTask}) {
 
 
     return (
         <header className='header'>
             <h1>{title}</h1>
-            <Button buttonFunction ={addButtonEvent} />
+            <Button 
+                onClick ={onAdd} 
+                text={showAddTask===true? "Close":"Add"} 
+                color = {showAddTask===true? "red":"steelblue" }
+            />
+            
         </header>
     )
 }
 
-Header.defaultProps = {
+Header.defaultProps = { 
     title:'Task Manager',
 }
 

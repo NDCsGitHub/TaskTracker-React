@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 
-function Button({color,text, buttonFunction}) {
+function Button({color,text, onClick}) {
 
 
     return (
-        <button  
-            onClick ={buttonFunction} 
+        <button
             style={{backgroundColor:color}} 
-            className='btn'> {text} 
+            className='btn' 
+            onClick = {onClick}
+        > 
+        {text} 
         </button>
     )
 }
@@ -21,7 +23,6 @@ Button.defaultProps = {
 Button.propTypes = {
     text: PropTypes.string,
     color: PropTypes.string,
-    buttonFunction:  PropTypes.func,
 }
 
 
