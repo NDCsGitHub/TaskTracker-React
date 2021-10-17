@@ -1,5 +1,6 @@
 import Header from './components/Header.js'
 import Tasks  from  './components/Tasks.js'
+import AddTask  from './components/AddTask'
 import {useState} from 'react'
 
 function App() {
@@ -45,11 +46,18 @@ function toggleReminder(id){
 
   return (
     <div className="container">
-     <Header />
-     {taskArray.length > 0  ?  
-     (<Tasks taskArrayProp={taskArray} onDeleteTask={deleteTask} onToggleReminder={toggleReminder} />) 
-     : 
-     ("Not Task")}
+
+      <Header />
+      <AddTask />
+
+      {taskArray.length > 0  ?  
+      (<Tasks taskArrayProp={taskArray} onDeleteTask={deleteTask} onToggleReminder={toggleReminder} />) 
+      : 
+      ("Not Task")}
+
+
+   
+
 
     </div>
   );

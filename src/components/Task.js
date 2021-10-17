@@ -11,17 +11,13 @@ function Task({taskProp, onDeleteTask, onToggleReminder}) {
         }
     }
 
-
-    // `task ${taskProp.reminder ? 'reminder':''}`
+    // we can also use ternary statement to add the toggleUI function   `task ${taskProp.reminder ? 'reminder':''}`
 
     return (
         <div 
-        
         className={`task ${toggleUI()}`}
-    
-        onDoubleClick={() => onToggleReminder(taskProp.id)}>
+        onClick={() => onToggleReminder(taskProp.id)}>
          
-
          <h3>
              {taskProp.text} 
              <FaTimes 
