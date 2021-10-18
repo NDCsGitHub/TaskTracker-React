@@ -112,7 +112,6 @@ function onAdd(){
 
       <Route path ='/' exact render = {(props) => (
         <>
-
         {showAddTask===true ?
           (<AddTask onAdd={addTask} />)
           :
