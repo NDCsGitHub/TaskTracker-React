@@ -1,62 +1,94 @@
 import Header from './components/Header.js'
 import Tasks  from  './components/Tasks.js'
 import AddTask  from './components/AddTask'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 function App() {
 
-  const [taskArray, setTasks] = useState(
-    [
-        {
-            id:1,
-            text:"text 1",
-            day: 'Oct 1st at 3pm',
-            reminder:true,
-        },
-        {
-            id:2,
-            text: "text 2",
-            day: "Oct 2nd at 2pm",
-            reminder:true,
-        },
-        {
-            id:3,
-            text:"text 3",
-            day:'Oct 3rd at 5pm',
-            reminder: false, 
-        },
-    ]
-)
+  const [taskArray, setTasks] = useState([
+
+  ])
+
+
+  // push data into our arrayTask state
+  useEffect(() => {
+    const getTasks = async () =>{
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    }
+    getTasks()
+  },[])
+
+  // fetch data tasks
+  const fetchTasks = async() => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+    return data
+  }
+
+  // fetch a single task
+  async function fetchTask(id){
+    const res = await fetch(`http://localhost:5000/tasks/${id}`)
+    const data = await res.json()
+    return data
+  }
 
 
 const [showAddTask, setShowAddTask] = useState(false)
 
 // delete task
-function deleteTask(id){
+async function deleteTask(id){
+  await fetch(`http://localhost:5000/tasks/${id}`, {method:'DELETE'})
+
   setTasks(
     taskArray.filter(item  => item.id !== id)
   )
 }
 
+// adding new task
+async function addTask(task){
+  const res = await fetch('http://localhost:5000/tasks', {
+    method:"POST",
+    headers:{
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(task)
+
+  })
+  
+  // const id = Math.floor(Math.random()*10000) + 1
+  // const newTask = {id, ...task}
+
+  const data = await res.json()
+  setTasks([...taskArray, data])
+  
+}
+
+
+
+
 // double click for reminder
-function toggleReminder(id){
+async function toggleReminder(id){
+  const taskToToggle = await fetchTask(id)
+  const updatedTask = {...taskToToggle, reminder:!taskToToggle.reminder}
+
+  const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+    method:'PUT',
+    headers: {
+      'Content-type':'application/json',
+    },
+    body: JSON.stringify(updatedTask)
+  })
+
+  const data = await res.json()
+
   setTasks(
     taskArray.map((item) => 
-      item.id === id ? {...item, reminder: !item.reminder} : item
+      item.id === id ? {...item, reminder: data.reminder} : item
     )
   )
 }
 
-
-// adding new task
-function addTask(task){
-  // setTasks(taskArray.push(task))
-  // console.log(taskArray)
-  const id = Math.floor(Math.random()*10000) + 1
-  const newTask = {id, ...task}
-  setTasks(taskArray.concat([newTask]))
-  console.log(taskArray)
-}
 
 //add button function
 function onAdd(){
