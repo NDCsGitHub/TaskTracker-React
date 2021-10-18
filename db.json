@@ -17,6 +17,12 @@
       "day": "asdasda",
       "reminder": false,
       "id": 5
+    },
+    {
+      "text": "dsadasd",
+      "day": "sadsadas",
+      "reminder": false,
+      "id": 6
     }
   ]
 }

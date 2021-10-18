@@ -1,7 +1,10 @@
 import Header from './components/Header.js'
 import Tasks  from  './components/Tasks.js'
 import AddTask  from './components/AddTask'
+import Footer from './components/Footer.js'
+import About from './components/About.js'
 import {useState, useEffect} from 'react'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 function App() {
 
@@ -99,23 +102,37 @@ function onAdd(){
 
 
   return (
+    <Router>
     <div className="container">
 
       <Header onAdd={onAdd} showAddTask={showAddTask} />
-      
-      {showAddTask===true ?
-        (<AddTask onAdd={addTask} />)
-        :
-        null
-      }
 
-      {taskArray.length > 0  ?  
-      (<Tasks taskArrayProp={taskArray} onDeleteTask={deleteTask} onToggleReminder={toggleReminder} />) 
-      : 
-      ("Not Task")}
 
+
+
+      <Route path ='/' exact render = {(props) => (
+        <>
+
+        {showAddTask===true ?
+          (<AddTask onAdd={addTask} />)
+          :
+          null
+        }
+
+
+        {taskArray.length > 0  ?  
+        (<Tasks taskArrayProp={taskArray} onDeleteTask={deleteTask} onToggleReminder={toggleReminder} />) 
+        : 
+        ("Not Task")}
+        
+        </>
+      )}/>
+
+      <Route path='/about' component = {About} />
+      <Footer />
 
     </div>
+    </Router>
   );
 }
 
