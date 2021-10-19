@@ -42,10 +42,9 @@ const [showAddTask, setShowAddTask] = useState(false)
 // delete task
 async function deleteTask(id){
   await fetch(`http://localhost:5000/tasks/${id}`, {method:'DELETE'})
-
-  setTasks(
-    taskArray.filter(item  => item.id !== id)
-  )
+  setTasks(   
+    taskArray.filter(item  => item.id !== id) 
+  ) 
 }
 
 // adding new task
